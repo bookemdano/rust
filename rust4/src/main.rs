@@ -18,6 +18,18 @@ fn main() {
 
     change(&mut s2);
     println!("s1 {}, s2 {}", s1, s2);
+
+    let first = find_between("if I were a rich man", ' ',  ' ');
+    println!("first -{}-", first);
+    let second = find_between("Houston, we have a problem here!", ',',  '!');
+    println!("second -{}-", second);
+    // let third = find_between("We have nothing to fear 🦔 but fear itself", '🦔',  '!');
+    let third = find_between("We have nothing to fear ; but fear itself", ';',  '!');
+    println!("third -{}-", third);
+
+    let fourth = find_between("We have nothing to fear but fear itself", ';',  '!');
+    println!("fourth -{}-", fourth);
+
 }
 
 fn takes_ownership(sz: String) -> (String, usize) {
@@ -37,15 +49,32 @@ fn new_string() -> String {
     let sz = String::from("over the rainbow");
     sz
 }
-fn find_between(sz: &str, start_tag: char, end_date: char) -> &str
+fn find_between(sz: &str, start_tag: char, end_tag: char) -> &str
 {
     let chars = sz.chars();
-    for (i, &item) in chars.iter().enumerate() {
-        if item == b' ' {
-            return &s[0..i];
+    let mut start_i= usize::MAX;
+    let mut end_i = usize::MAX;
+    for (i, item) in chars.enumerate() {
+        if start_i == usize::MAX {
+            if item == start_tag {
+                println!("Found start {}", i);
+                start_i = i + 1;    // don't include tag
+            }
+            continue;
+        } else {
+            if item == end_tag {
+                println!("Found end {}", i);
+                end_i = i;
+                break;
+            }
         }
     }
-
-    &s[..]
-
+    
+    if start_i == usize::MAX {
+        &sz[0..0]
+    } else if end_i == usize::MAX {
+        &sz[start_i..]
+    } else {
+        &sz[start_i..end_i]
+    }
 }

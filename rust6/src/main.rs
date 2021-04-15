@@ -44,6 +44,25 @@ fn main() {
     println!("{:?} value is {:?}", coin, value_in_cents(&coin));
     let coin = Coin::Quarter(UsState::Alabama);
     println!("{:?} value is {:?}", coin, value_in_cents(&coin));
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    let some_u8_value = 0u8;
+    match some_u8_value {
+        1 => println!("one"),
+        3 => println!("three"),
+        5 => println!("five"),
+        7 => println!("seven"),
+        _ => (),    // matches everything
+    }
+
+    //6.3
+    let some_u8_value = Some(0u8);
+    if let Some(3) = some_u8_value {    // if let is like a short match, syntax sugar
+        println!("three");
+    }
 }
 
 #[derive(Debug)] 
@@ -57,7 +76,7 @@ enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter(UsState),
+    Quarter(UsState),   // only this type of coin has a state
 }
 
 fn value_in_cents(coin: &Coin) -> u8 {
@@ -68,9 +87,16 @@ fn value_in_cents(coin: &Coin) -> u8 {
         },
         Coin::Nickel => 5,
         Coin::Dime => 10,
-        Coin::Quarter(state) => {
+        Coin::Quarter(state) => {   // now we have a state variable to use
             println!("State quarter from {:?}!", state);
             25
         }
+    }
+}
+// restrict option from T to only i32
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,   // must be exhaustive- include all matches for x
+        Some(i) => Some(i + 1),
     }
 }

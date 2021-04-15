@@ -4,9 +4,22 @@ struct User {
     email: String,
     login_count: i32,
 }
+// can be one or multiple impl's
 impl User {
     fn is_valid(&self) -> bool {
         self.login_count > 0
+    }
+
+    fn is_new(&self) -> bool {
+        self.login_count == 0
+    }
+    // associated function, like a static
+    fn fake_user() -> User {
+        User {
+            username: String::from("fake"),
+            email: String::from("fake@b.com"),
+            login_count: 0,       
+        }
     }
 }
 // structs members don't need names, called tuple struct

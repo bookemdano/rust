@@ -125,6 +125,23 @@ fn main() {
 
 }
 
+fn fib(n: i32) -> i32 {
+    let mut ith = 0;
+    let mut fib = 0;
+    let mut lastfib = 1;
+    let result = loop {
+        ith += 1;
+        let oldfib = fib;
+        fib += lastfib;
+        lastfib = oldfib;
+        println!("The {}th fib is {}!", ith, fib);
+        if ith >= n {
+            break fib;
+        }
+    };
+    result
+}
+
 fn another_function(arg: i32) {
     println!("The value of arg is: {}", arg); 
 }

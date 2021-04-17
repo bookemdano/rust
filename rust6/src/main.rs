@@ -26,6 +26,9 @@ enum IpAddr {
 }
 
 fn main() {
+    //println!("abcd to {}", remove_duplicates(String::from("abcd"), 2));
+    println!("aa to {}", remove_duplicates(String::from("deeedbbcccbdaa"), 3));
+
     let home = IpAddr::V4(127,0,0,1);
     println!("home {:?}", home);
     let loopback = IpAddr::V6(String::from("::1"));
@@ -98,5 +101,39 @@ fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
         None => None,   // must be exhaustive- include all matches for x
         Some(i) => Some(i + 1),
+    }
+}
+
+pub fn remove_duplicates(s: String, k: i32) -> String {
+    let mut sz = s;
+    loop {
+        let mut count = 1;
+        let mut start = 0;
+        let mut found = false;
+        let mut last_c = 'X';
+        for (i, c) in sz.chars().enumerate() {
+            if c != last_c {
+                count = 1;
+                start = i;
+                last_c = c;
+            } else {
+                count = count + 1;
+                if count == k {
+                    sz.replace_range(start..i + 1, "");
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if !found {
+            break sz;
+        }
+    }
+}
+fn add_offset(big_indexer: usize, delta: isize) -> Option<usize> {
+    if delta < 0 {
+        big_indexer.checked_sub(delta.wrapping_abs() as usize)
+    } else {
+        big_indexer.checked_add(delta as usize)
     }
 }

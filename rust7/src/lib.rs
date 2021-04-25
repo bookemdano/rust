@@ -1,20 +1,5 @@
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {
-            println!("add_to_waitlist()");
-        }
+mod front_of_house;
 
-        fn seat_at_table() {}
-    }
-
-    pub mod serving {
-        fn take_order() {}
-
-        fn serve_order() {}
-
-        fn take_payment() {}
-    }
-}
 fn serve_order() {}
 mod back_of_house {
     pub struct Breakfast {
@@ -37,14 +22,14 @@ mod back_of_house {
     fn cook_order() {}
 }
 
-use crate::front_of_house::hosting;
+pub use crate::front_of_house::hosting;
 
 pub fn eat_at_restaurant() {
     // Absolute path
-    crate::front_of_house::hosting::add_to_waitlist();
+    // crate::front_of_house::hosting::add_to_waitlist();
 
     // Relative path
-    front_of_house::hosting::add_to_waitlist();
+    //front_of_house::hosting::add_to_waitlist();
     
     // use using
     hosting::add_to_waitlist();

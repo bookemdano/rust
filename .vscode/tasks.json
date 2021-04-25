@@ -11,7 +11,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"label": "Rust: cargo build - rust7"
+			"label": "Rust: cargo build - rust8"
 		}
 	]
 }
